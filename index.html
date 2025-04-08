@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='utf-8' />
-    <title>Mapbox Sheetmapper</title>
+    <title>Edible Plants of Brooklyn</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="style.css" />
@@ -13,12 +13,27 @@
 </head>
 
 <body>
-    <div id="text-overlay">
-        <div id="title"></div>
-        <div id="description"></div>
+    <div id="header">
+        <h1>Edible Plants of Brooklyn</h1>
+        <p>Click on the markers to learn more about the edible plants in Brooklyn!</p>
     </div>
-    <div id='map'></div>
+    <div id="layout-container">
+        <!-- Sidebar with text -->
+        <div id="sidebar">
+            <div id="text-overlay">
+                <div id="title"></div>
+                <div id="description"></div>
+            </div>
+        </div>
+
+        <!-- Map container -->
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
+
+
 
 </html>

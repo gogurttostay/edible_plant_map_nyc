@@ -5,8 +5,6 @@ const sheetmapperOptions = {
         color: '#4682b4',
         scale: 0.8
     },
-    title: 'Mapbox Sheetmapper',
-    description: 'Sheetmapper is an html and javascript template to help you quickly create an interactive map with point data sourced from a google sheet.'
 };
 
 async function convertCsvToGeojson(csvData) {
@@ -40,36 +38,59 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(csvData);
         const geojsonData = await convertCsvToGeojson(csvData);
 
-        const bounds = turf.bbox(geojsonData);
-
         const map = new mapboxgl.Map({
             container: 'map',
-            bounds,
-            fitBoundsOptions: {
-                padding: 100
-            }
+            style: 'mapbox://styles/mapbox/streets-v11', // Add your Mapbox style here
+            center: [-73.95, 40.73],  // Default center (Brooklyn)
+            zoom: 12,  // Default zoom level
         });
+
+        const plantInfo = {
+            "Magnolia": {
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Magnolia_x_soulangeana_%28Jean_Tosti%29.jpg",
+                description: "Magnolias are spreading evergreen or deciduous trees or shrubs characterised by large fragrant flowers, which may be bowl-shaped or star-shaped, in shades of white, pink, purple, green, or yellow. In deciduous species, the blooms often appear before the leaves in spring."
+
+            },
+            "Juneberry": {
+                description: "Juneberries are sweet, edible berries. They're often found in urban parks and bloom in early summer.",
+                imageUrl: "https://example.com/juneberry.jpg"
+            },
+            // Add more plants here...
+        };
 
         map.on('load', function () {
             geojsonData.features.forEach((d) => {
-                console.log("Name:", d.properties.Name, "| Coordinates:", d.geometry.coordinates);
+                const name = d.properties.Name;
 
-                const [lng, lat] = d.geometry.coordinates;
-                if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-                    console.warn("Skipping invalid coordinates:", d.geometry.coordinates);
-                    return;
-                }
-
-                const popupContent = `<h3>${d.properties.Name}</h3>` +
+                // Popup content logic
+                const popupContent = `<h3>${name}</h3>` +
                     `<h4><b>Address: </b>${d.properties.Address}</h4>` +
                     `<h4><b>Phone: </b>${d.properties.Phone}</h4>`;
 
-                new mapboxgl.Marker(markerOptions)
+                // Create the marker and attach the popup
+                const marker = new mapboxgl.Marker(markerOptions)
                     .setLngLat(d.geometry.coordinates)
                     .setPopup(new mapboxgl.Popup().setHTML(popupContent))
                     .addTo(map);
+
+                // Add click event to the marker to update the sidebar
+                marker.getElement().addEventListener('click', () => {
+                    // Retrieve plant info (fallback to empty if not found)
+                    const info = plantInfo[name] || {
+                        description: "No information available.",
+                        imageUrl: ""
+                    };
+
+                    // Update sidebar content
+                    document.getElementById("title").innerText = name;
+                    document.getElementById("description").innerHTML = `
+                        <p>${info.description}</p>
+                        ${info.imageUrl ? `<img src="${info.imageUrl}" alt="${name}" style="width:100%; margin-top:10px; border-radius:8px;">` : ''}
+                    `;
+                });
             });
 
+            // If the title and description from options exist, set them in the sidebar
             if (title) {
                 document.getElementById("title").innerHTML = title;
             }
