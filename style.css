@@ -22,15 +22,38 @@ body, html {
 }
 
 #sidebar {
-    width: 30%; /* Sidebar takes up 30% of the width */
+    width: 30%;
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 0px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     font-family: sans-serif;
     overflow-y: auto;
     border-radius: 10px;
     position: relative;
 }
+
+#description h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+#description p {
+    font-size: 14px;
+    color: #666;
+}
+
+#plant-image-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#plant-subtitle {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
 
 #map-container {
     flex-grow: 1; /* Map container takes up remaining space */
