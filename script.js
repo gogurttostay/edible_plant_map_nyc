@@ -5,7 +5,7 @@ const sheetmapperOptions = {
         color: '#4682b4',
         scale: 0.8
     },
-    title: "Edible Plants in NYC",
+    title: "Click a pin to learn more!",
     description: "Explore the locations of edible plants across New York City."
 };
 
@@ -49,27 +49,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const plantInfo = {
             "Magnolia": {
-                description: "Magnolia is a genus of flowering plants with beautiful large blossoms. Many species are edible.",
+                description: "Magnolia is a genus of flowering plants with beautiful large blossoms. Magnolia Trees are known for their large and fragrant flowers. They are found in temperate and subtropical regions of the world. Many species are edible.",
                 imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Magnolia_x_soulangeana_%28Jean_Tosti%29.jpg",
-                subtitle: "Magnolia Trees are known for their large and fragrant flowers.",
-                details: "They are found in temperate and subtropical regions of the world.",
+                subtitle: "Season: Late-March through early-April.",
+                details: "Magnolia × soulangeana, commonly known as the saucer magnolia, is widespread throughout NYC. Best harvested as late buds or early, closed blossoms, they make excellent pickles. They can also be used raw in salads, coated in sugar to make a shrub, or cooked down into a floral syrup.",
                 caption: "Image: Jean Tosti via Wikimedia Commons"
 
             },
             "Juneberry": {
-                description: "Juneberries are sweet, edible berries. They're often found in urban parks and bloom in early summer.",
+                description: "Amelanchier, better known as juneberries or serviceberries, are native to North America. Juneberries are sweet, edible berries often found in urban parks. They begin ripening by early June (hence the name). As the berries turn from bright red to near-black, you have another week to grab them before they drop. When perfectly ripe, they are as sweet as apples and as juicy as blueberries with a subtle almond aftertaste, which comes from the trace amounts of cyanide in the berries.",
                 imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Amelanchier_ovalis3.JPG",
-                subtitle: "Juneberries are small, sweet berries that grow in clusters.",
-                details: "They are often used in jams and pies.",
-                caption: "Image: Jean Tosti via Wikimedia Commons"
+                subtitle: "Season: Late-May through June.",
+                details: "Juneberries are delicious raw, but they also make a great jam. They can be used in pies, tarts, and other desserts. Cooked down into a syrup, they're great in a cocktail or seltzer. Macerate them in a liqour of your choice for 6 months for a taste of summer in the depths of winter.",
+                caption: "Image: I.Sáček via Wikimedia Commons"
 
             },
             "Mulberry": {
-                description: ".",
+                description: "Morus rubra or alba (red or white mulberry) tend to be small- to medium-size trees with irregular, variegated leaves. Notwithstanding the child’s song, they are not bushes. Both the native red, which has ripe purplish-black berries, as well as the Chinese white, which was introduced in the 19th century to support an ultimately unsuccessful silk industry and which produces ghostly pale-to-sometimes purplish fruit, are prodigious fruit-bearers.",
                 imageUrl: "https://static01.nyt.com/images/2012/06/08/nyregion/08mulberry1-cityroom/08mulberry1-cityroom-blog480.jpg",
-                subtitle: "Late-May through June.",
-                details: "They are often used in jams and pies.",
-                caption: "Image: Jean Tosti via Wikimedia Commons"
+                subtitle: "Season: Late-May through June.",
+                details: "I enjoy mulberries’ benignly sweet flavor either in jams or straight off the tree. Like raspberries and blackberries, mulberries are aggregate fruit clusters, but without the tartness.",
+                caption: "Image: Ava Chin via The New York Times"
 
             },
             // Add more plants here... 
