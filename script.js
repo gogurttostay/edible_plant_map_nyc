@@ -52,32 +52,47 @@ document.addEventListener("DOMContentLoaded", async () => {
                 description: "Magnolia is a genus of flowering plants with beautiful large blossoms. Many species are edible.",
                 imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Magnolia_x_soulangeana_%28Jean_Tosti%29.jpg",
                 subtitle: "Magnolia Trees are known for their large and fragrant flowers.",
-                details: "They are found in temperate and subtropical regions of the world."
+                details: "They are found in temperate and subtropical regions of the world.",
+                caption: "Image: Jean Tosti via Wikimedia Commons"
+
             },
             "Juneberry": {
                 description: "Juneberries are sweet, edible berries. They're often found in urban parks and bloom in early summer.",
-                imageUrl: "https://example.com/juneberry.jpg",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Amelanchier_ovalis3.JPG",
                 subtitle: "Juneberries are small, sweet berries that grow in clusters.",
-                details: "They are often used in jams and pies."
+                details: "They are often used in jams and pies.",
+                caption: "Image: Jean Tosti via Wikimedia Commons"
+
             },
-            // Add more plants here...
+            "Mulberry": {
+                description: ".",
+                imageUrl: "https://static01.nyt.com/images/2012/06/08/nyregion/08mulberry1-cityroom/08mulberry1-cityroom-blog480.jpg",
+                subtitle: "Late-May through June.",
+                details: "They are often used in jams and pies.",
+                caption: "Image: Jean Tosti via Wikimedia Commons"
+
+            },
+            // Add more plants here... 
         };
-        
+
         map.on('load', function () {
             geojsonData.features.forEach((d) => {
                 const name = d.properties.Name;
-        
+
                 // Popup content logic
                 const popupContent = `<h3>${name}</h3>` +
                     `<h4><b>Address: </b>${d.properties.Address}</h4>` +
-                    `<h4><b>Phone: </b>${d.properties.Phone}</h4>`;
-        
+                    `<h4><b>Location Description:</b> ${d.properties.Description || ""}</h4>`;
+
+
+
+
                 // Create the marker and attach the popup
                 const marker = new mapboxgl.Marker(markerOptions)
                     .setLngLat(d.geometry.coordinates)
                     .setPopup(new mapboxgl.Popup().setHTML(popupContent))
                     .addTo(map);
-        
+
                 // Add click event to the marker to update the sidebar
                 marker.getElement().addEventListener('click', () => {
                     // Retrieve plant info (fallback to empty if not found)
@@ -87,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         subtitle: "",
                         details: ""
                     };
-        
+
                     // Update sidebar content
                     document.getElementById("title").innerText = name;
                     document.getElementById("plant-description").innerText = info.description;
@@ -95,10 +110,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     document.getElementById("plant-image").alt = name;
                     document.getElementById("plant-subtitle").innerText = info.subtitle;
                     document.getElementById("plant-details").innerText = info.details;
+                    document.getElementById("plant-image-caption").innerText = info.caption || "";
+
                 });
             });
         });
-        
+
         // If the title and description from options exist, set them in the sidebar
         if (title) {
             document.getElementById("title").innerHTML = title;
