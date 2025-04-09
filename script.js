@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11', // Add your Mapbox style here
+            style: 'mapbox://styles/mapbox/outdoors-v12', // Add your Mapbox style here
             center: [-73.95, 40.73],  // Default center (Brooklyn)
             zoom: 12,  // Default zoom level
         });
