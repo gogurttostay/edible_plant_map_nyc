@@ -1,28 +1,31 @@
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     height: 100%;
     background-color: white;
 }
 
-#header-container
-{
+#header-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 120px; /* Fixed height for the header */
+    height: 120px;
+    /* Fixed height for the header */
     background-color: white;
     color: #064d1b;
     display: flex;
     align-items: left;
     border-bottom: 1px solid black;
-    z-index: 1000; /* Ensure header is above other elements */
+    z-index: 1000;
+    /* Ensure header is above other elements */
 }
 
 #header {
     background-color: white;
-    flex: 1; /* Allow header to take full width */
+    flex: 1;
+    /* Allow header to take full width */
     color: #064d1b;
     text-align: left;
     padding: 0px;
@@ -32,22 +35,30 @@ body, html {
 }
 
 #header h1 {
-    margin-bottom: 4px; /* Reduce space between h1 and p */
-    line-height: 1.2; /* Tighter line height */
-    margin-top: 10px; /* Remove extra space above the header */
+    margin-bottom: 4px;
+    /* Reduce space between h1 and p */
+    line-height: 1.2;
+    /* Tighter line height */
+    margin-top: 10px;
+    /* Remove extra space above the header */
 }
 
 #header p {
-    margin-top: 0; /* Remove extra space above the paragraph */
+    margin-top: 0;
+    /* Remove extra space above the paragraph */
     line-height: 1.2;
 }
 
 #layout-container {
-    display: flex; /* Flexbox to layout sidebar and map container horizontally */
-    height: calc(100vh); /* Account for the header height */
-    margin-top: 120px; /* Push down the layout below the header */
+    display: flex;
+    /* Flexbox to layout sidebar and map container horizontally */
+    height: calc(100vh);
+    /* Account for the header height */
+    margin-top: 120px;
+    /* Push down the layout below the header */
     padding: 0px;
-    box-sizing: border-box; /* Include padding in height calculation */
+    box-sizing: border-box;
+    /* Include padding in height calculation */
     border: 1px solid black;
 }
 
@@ -101,7 +112,8 @@ body, html {
 }
 
 #map-container {
-    flex-grow: 1; /* Map container takes up remaining space */
+    flex-grow: 1;
+    /* Map container takes up remaining space */
     margin-left: 0px;
     border: 1px solid black;
     overflow: hidden;

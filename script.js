@@ -47,10 +47,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             zoom: 12,  // Default zoom level
 
             // 👇 Limit map to NYC bounds
-    maxBounds: [
-        [-74.259, 40.477], // Southwest coordinates (approx. Staten Island corner)
-        [-73.700, 40.917]  // Northeast coordinates (Bronx corner)
-    ]
+            maxBounds: [
+                [-74.259, 40.477], // Southwest coordinates (approx. Staten Island corner)
+                [-73.700, 40.917]  // Northeast coordinates (Bronx corner)
+            ]
         });
 
         const plantInfo = {
