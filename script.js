@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             style: 'mapbox://styles/mapbox/light-v11', // Add your Mapbox style here
             center: [-73.95, 40.73],  // Default center (Brooklyn)
             zoom: 12,  // Default zoom level
+
+            // 👇 Limit map to NYC bounds
+    maxBounds: [
+        [-74.259, 40.477], // Southwest coordinates (approx. Staten Island corner)
+        [-73.700, 40.917]  // Northeast coordinates (Bronx corner)
+    ]
         });
 
         const plantInfo = {
