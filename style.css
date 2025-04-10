@@ -2,34 +2,63 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #fef6f0;
+    background-color: white;
+}
+
+#header-container
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px; /* Fixed height for the header */
+    background-color: white;
+    color: #064d1b;
+    display: flex;
+    align-items: left;
+    border-bottom: 1px solid black;
+    z-index: 1000; /* Ensure header is above other elements */
 }
 
 #header {
-    background-color: #fef6f0;
-    color: #333;
-    text-align: center;
-    padding: 20px;
+    background-color: white;
+    flex: 1; /* Allow header to take full width */
+    color: #064d1b;
+    text-align: left;
+    padding: 0px;
     font-family: sans-serif;
     font-size: 24px;
+    border: 1px solid black;
+}
+
+#header h1 {
+    margin-bottom: 4px; /* Reduce space between h1 and p */
+    line-height: 1.2; /* Tighter line height */
+    margin-top: 10px; /* Remove extra space above the header */
+}
+
+#header p {
+    margin-top: 0; /* Remove extra space above the paragraph */
+    line-height: 1.2;
 }
 
 #layout-container {
     display: flex; /* Flexbox to layout sidebar and map container horizontally */
-    height: calc(100vh - 80px); /* Account for the header height */
-    padding: 20px;
+    height: calc(100vh); /* Account for the header height */
+    margin-top: 120px; /* Push down the layout below the header */
+    padding: 0px;
     box-sizing: border-box; /* Include padding in height calculation */
+    border: 1px solid black;
 }
 
 #sidebar {
     width: 30%;
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0%;
     font-family: sans-serif;
     overflow-y: auto;
-    border-radius: 10px;
     position: relative;
+    border: 1px solid black;
 }
 
 #description h3 {
@@ -73,9 +102,8 @@ body, html {
 
 #map-container {
     flex-grow: 1; /* Map container takes up remaining space */
-    margin-left: 20px;
-    border: 6px solid white;
-    border-radius: 10px;
+    margin-left: 0px;
+    border: 1px solid black;
     overflow: hidden;
     height: 100%;
 }

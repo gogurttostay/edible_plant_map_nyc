@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v12', // Add your Mapbox style here
+            style: 'mapbox://styles/mapbox/light-v11', // Add your Mapbox style here
             center: [-73.95, 40.73],  // Default center (Brooklyn)
             zoom: 12,  // Default zoom level
         });
@@ -85,10 +85,22 @@ document.addEventListener("DOMContentLoaded", async () => {
                     `<h4><b>Location Description:</b> ${d.properties.Description || ""}</h4>`;
 
 
+                // color logic
+                function getColorByType(type) {
+                    switch (type) {
+                        case 'Fruit Tree': return '#4CAF50';
+                        case 'Fruit Bush': return '#FF9800';
+                        case 'Flower': return '#9C27B0';
+                        default: return '#4682b4';
+                    }
+                }
+
+                const color = getColorByType(d.properties.Type);
+
 
 
                 // Create the marker and attach the popup
-                const marker = new mapboxgl.Marker(markerOptions)
+                const marker = new mapboxgl.Marker({ color, scale: markerOptions.scale })
                     .setLngLat(d.geometry.coordinates)
                     .setPopup(new mapboxgl.Popup().setHTML(popupContent))
                     .addTo(map);
@@ -119,10 +131,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         // If the title and description from options exist, set them in the sidebar
         if (title) {
             document.getElementById("title").innerHTML = title;
-        }
-
-        if (description) {
-            document.getElementById("description").innerHTML = description;
         }
 
     } catch (error) {
