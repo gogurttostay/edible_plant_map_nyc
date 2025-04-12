@@ -94,9 +94,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // color logic
                 function getColorByType(type) {
                     switch (type) {
-                        case 'Fruit Tree': return '#4CAF50';
-                        case 'Fruit Bush': return '#FF9800';
-                        case 'Flower': return '#9C27B0';
+                        case 'Fruit Tree': return '#DF99F0';
+                        case 'Fruit Bush': return '#A3005C';
+                        case 'Flower': return '#E59EBF';
+                        case 'Herb': return '#B5DF90';
+                        case 'Leafy Green': return '#60992D';
+                        case 'Nut Tree': return '#B27C66';
                         default: return '#4682b4';
                     }
                 }
@@ -105,11 +108,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-                // Create the marker and attach the popup
-                const marker = new mapboxgl.Marker({ color, scale: markerOptions.scale })
+                // Create a div element for the custom marker
+                const el = document.createElement('div');
+                el.className = 'custom-marker';
+                el.style.backgroundColor = getColorByType(d.properties.Type);
+
+                // Optional: size based on markerOptions.scale
+                const baseSize = 15; // base size in pixels
+                el.style.width = `${baseSize * markerOptions.scale}px`;
+                el.style.height = `${baseSize * markerOptions.scale}px`;
+
+                const marker = new mapboxgl.Marker(el)
                     .setLngLat(d.geometry.coordinates)
                     .setPopup(new mapboxgl.Popup().setHTML(popupContent))
                     .addTo(map);
+
 
                 // Add click event to the marker to update the sidebar
                 marker.getElement().addEventListener('click', () => {
@@ -133,6 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
             });
         });
+
 
         // If the title and description from options exist, set them in the sidebar
         if (title) {

@@ -6,6 +6,15 @@ html {
     background-color: white;
 }
 
+#flex-box {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Full height of the viewport */
+    margin: 0;
+    padding: 0;
+}
+
 #header-container {
     position: fixed;
     top: 0;
@@ -23,7 +32,7 @@ html {
 }
 
 #header {
-    background-color: white;
+    background-color: rgb(254, 246, 240);
     flex: 1;
     /* Allow header to take full width */
     color: #064d1b;
@@ -41,12 +50,16 @@ html {
     /* Tighter line height */
     margin-top: 10px;
     /* Remove extra space above the header */
+    margin-left: 10px;
+    /* Align header text to the left */
 }
 
 #header p {
     margin-top: 0;
     /* Remove extra space above the paragraph */
     line-height: 1.2;
+    margin-left: 10px;
+    /* Align paragraph text to the left */
 }
 
 #layout-container {
@@ -144,6 +157,14 @@ html {
     font-size: 14px;
     line-height: 20px;
 }
+
+.custom-marker {
+    border-radius: 50%;
+    border: 1px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
 
 /* Popup styling */
 .mapboxgl-popup {
