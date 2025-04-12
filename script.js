@@ -16,41 +16,31 @@ async function convertCsvToGeojson(csvData) {
             lonfield: 'Longitude',
             delimiter: ','
         }, (error, data) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(data);
-            }
+            if (error) reject(error);
+            else resolve(data);
         });
     });
 }
 
 const { markerOptions, title, description, googleSheetDownloadUrl, mapboxAccessToken } = sheetmapperOptions;
-
 mapboxgl.accessToken = mapboxAccessToken;
+
+let currentHighlightedMarker = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const response = await fetch(`${googleSheetDownloadUrl}`);
-        if (!response.ok) {
-            throw new Error(`Error loading google sheet data. Make sure googleSheetId is configured properly and that the google sheet has been published to the web.`);
-        }
+        const response = await fetch(googleSheetDownloadUrl);
+        if (!response.ok) throw new Error("Error loading sheet data");
 
         const csvData = await response.text();
-        console.log(csvData);
         const geojsonData = await convertCsvToGeojson(csvData);
 
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/light-v11', // Add your Mapbox style here
-            center: [-73.95, 40.73],  // Default center (Brooklyn)
-            zoom: 12,  // Default zoom level
-
-            // 👇 Limit map to NYC bounds
-            maxBounds: [
-                [-74.259, 40.477], // Southwest coordinates (approx. Staten Island corner)
-                [-73.700, 40.917]  // Northeast coordinates (Bronx corner)
-            ]
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: [-73.95, 40.73],
+            zoom: 12,
+            maxBounds: [[-74.259, 40.477], [-73.700, 40.917]]
         });
 
         const plantInfo = {
@@ -81,18 +71,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Add more plants here... 
         };
 
-        map.on('load', function () {
-            geojsonData.features.forEach((d) => {
+        map.on('load', () => {
+            geojsonData.features.forEach(d => {
                 const name = d.properties.Name;
 
-                // Popup content logic
-                const popupContent = `<h3>${name}</h3>` +
-                    `<h4><b>Address: </b>${d.properties.Address}</h4>` +
-                    `<h4><b>Location Description:</b> ${d.properties.Description || ""}</h4>`;
-
-
-                // color logic
-                function getColorByType(type) {
+                const getColorByType = (type) => {
                     switch (type) {
                         case 'Fruit Tree': return '#DF99F0';
                         case 'Fruit Bush': return '#A3005C';
@@ -102,60 +85,94 @@ document.addEventListener("DOMContentLoaded", async () => {
                         case 'Nut Tree': return '#B27C66';
                         default: return '#4682b4';
                     }
-                }
+                };
 
                 const color = getColorByType(d.properties.Type);
 
-
-
-                // Create a div element for the custom marker
+                // Outer marker div
                 const el = document.createElement('div');
                 el.className = 'custom-marker';
-                el.style.backgroundColor = getColorByType(d.properties.Type);
 
-                // Optional: size based on markerOptions.scale
-                const baseSize = 15; // base size in pixels
-                el.style.width = `${baseSize * markerOptions.scale}px`;
-                el.style.height = `${baseSize * markerOptions.scale}px`;
+                // Inner styled circle
+                const inner = document.createElement('div');
+                inner.className = 'custom-marker-inner';
+                inner.style.backgroundColor = color;
+                inner.style.width = `${15 * markerOptions.scale}px`;
+                inner.style.height = `${15 * markerOptions.scale}px`;
+
+                el.appendChild(inner);
 
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat(d.geometry.coordinates)
-                    .setPopup(new mapboxgl.Popup().setHTML(popupContent))
                     .addTo(map);
 
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
 
-                // Add click event to the marker to update the sidebar
-                marker.getElement().addEventListener('click', () => {
-                    // Retrieve plant info (fallback to empty if not found)
+                    if (currentHighlightedMarker && currentHighlightedMarker !== inner) {
+                        currentHighlightedMarker.style.transform = "scale(1)";
+                        currentHighlightedMarker.style.border = "none";
+                    }
+
+                    inner.style.transform = "scale(1.5)";
+                    inner.style.border = "2px solid white";
+                    currentHighlightedMarker = inner;
+
                     const info = plantInfo[name] || {
                         description: "No information available.",
                         imageUrl: "",
                         subtitle: "",
-                        details: ""
+                        details: "",
+                        caption: ""
                     };
 
-                    // Update sidebar content
                     document.getElementById("title").innerText = name;
                     document.getElementById("plant-description").innerText = info.description;
                     document.getElementById("plant-image").src = info.imageUrl;
                     document.getElementById("plant-image").alt = name;
                     document.getElementById("plant-subtitle").innerText = info.subtitle;
                     document.getElementById("plant-details").innerText = info.details;
-                    document.getElementById("plant-image-caption").innerText = info.caption || "";
+                    document.getElementById("plant-image-caption").innerText = info.caption;
+                });
 
+                el.addEventListener("mouseenter", () => {
+                    if (currentHighlightedMarker !== inner) {
+                        inner.style.transform = "scale(1.2)";
+                    }
+                });
+
+                el.addEventListener("mouseleave", () => {
+                    if (currentHighlightedMarker !== inner) {
+                        inner.style.transform = "scale(1)";
+                    }
                 });
             });
+
+            map.on('click', () => {
+                document.getElementById("title").innerText = "Edible Plants of Brooklyn";
+                document.getElementById("plant-subtitle").innerText = "";
+                document.getElementById("plant-description").innerText = "Select a marker to see details here.";
+                document.getElementById("plant-details").innerText = "";
+                document.getElementById("plant-image-caption").innerText = "";
+                const img = document.getElementById("plant-image");
+                img.src = "";
+                img.alt = "";
+
+                if (currentHighlightedMarker) {
+                    currentHighlightedMarker.style.transform = "scale(1)";
+                    currentHighlightedMarker.style.border = "none";
+                    currentHighlightedMarker = null;
+                }
+            });
+
         });
 
-
-        // If the title and description from options exist, set them in the sidebar
         if (title) {
             document.getElementById("title").innerHTML = title;
         }
 
     } catch (error) {
-        // Handle errors gracefully
-        console.error('Error:', error);  // Log the error to the console
+        console.error('Error:', error);
         alert('An error occurred while loading the map data. Please try again later.');
     }
 });
