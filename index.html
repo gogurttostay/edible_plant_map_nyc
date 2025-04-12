@@ -14,30 +14,41 @@
 
 <body>
     <div id="flex-box">
-    <div id="header-container">
-        <div id="header">
-            <h1>Edible Plants of Brooklyn</h1>
-            <p>Click on the markers to learn more about edible plants in Brooklyn!</p>
-        </div>
-    </div>
-    <div id="layout-container">
-        <!-- Sidebar with text -->
-        <div id="sidebar">
-            <div id="text-overlay">
-                <div id="title"></div> <!-- Plant Name -->
-                <div id="plant-subtitle"></div> <!-- Subtitle -->
-                <div id="plant-description"></div> <!-- Description -->
-                <div id="plant-details"></div> <!-- Details -->
-                <img id="plant-image" src="" alt="" /> <!-- Plant Image -->
-                <p id="plant-image-caption"></p> <!-- Image Caption -->
+        <div id="header-container">
+            <div id="header">
+                <h1>Edible Plants of Brooklyn</h1>
+                <p>Click on the markers to learn more about edible plants in Brooklyn!</p>
             </div>
         </div>
+        <div id="layout-container">
+            <!-- Sidebar with text -->
+            <div id="sidebar">
+                <div id="text-overlay">
+                    <div id="title"></div> <!-- Plant Name -->
+                    <!-- Location Section -->
+                    <div id="location-section">
+                        <h3 id="location-title" class="hidden">Location:</h3>
+                        <div id="plant-address" class="geojson-text"></div> <!-- Address from GeoJSON -->
+                    </div>
 
-        <!-- Map container -->
-        <div id="map-container">
-            <div id="map"></div>
+                    <!-- Location Description Section -->
+                    <div id="location-description-section">
+                        <h3 id="location-description-title" class="hidden">Location Description:</h3>
+                        <div id="plant-location" class="geojson-text"></div> <!-- Description from GeoJSON -->
+                    </div>
+                    <div id="plant-subtitle"></div> <!-- Subtitle -->
+                    <div id="plant-description"></div> <!-- Description -->
+                    <div id="plant-details"></div> <!-- Details -->
+                    <img id="plant-image" src="" alt="" /> <!-- Plant Image -->
+                    <p id="plant-image-caption"></p> <!-- Image Caption -->
+                </div>
+            </div>
+
+            <!-- Map container -->
+            <div id="map-container">
+                <div id="map"></div>
+            </div>
         </div>
-    </div>
     </div>
 
     <script src="script.js"></script>

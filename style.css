@@ -19,9 +19,6 @@ html {
 }
 
 #header-container {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     background-color: white;
     color: #064d1b;
@@ -34,7 +31,7 @@ html {
 }
 
 #header {
-    background-color: rgb(254, 246, 240);
+    background-color: white;);
     flex: 1;
     /* Allow header to take full width */
     color: #064d1b;
@@ -71,10 +68,8 @@ html {
     /* Allow layout container to take remaining space */
     overflow: hidden;
     /* Prevent scrolling */
-    height: calc(100vh);
+    height: calc(100vh - 120px);
     /* Account for the header height */
-    margin-top: 120px;
-    /* Push down the layout below the header */
     padding: 0px;
     box-sizing: border-box;
     /* Include padding in height calculation */
@@ -89,7 +84,7 @@ html {
     overflow-y: auto;
     position: relative;
     border: 1px solid black;
-    height: calc(100vh - 120px);
+    height: 100%;
     /* Account for the header height */
 }
 
@@ -138,7 +133,7 @@ html {
     margin-left: 0px;
     border: 1px solid black;
     overflow: hidden;
-    height: calc(100vh-120px);
+    height: 100%;
     /* Account for the header height */
 }
 
@@ -187,52 +182,43 @@ html {
     box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.25);
 }
 
-
-/* Popup styling */
-.mapboxgl-popup {
-    padding-bottom: 5px;
-}
-
-.mapboxgl-popup-close-button {
-    display: none;
-}
-
-.mapboxgl-popup-content {
-    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
-    padding: 0;
-    width: 250px;
-}
-
-.mapboxgl-popup-content-wrapper {
-    padding: 1%;
-}
-
-.mapboxgl-popup-content h3 {
-    background: rgb(61, 59, 59);
-    text-align: center;
-    color: #fff;
-    margin: 0;
+#location-section,
+#location-description-section {
     display: block;
-    padding: 15px;
-    font-weight: 700;
-    margin-top: -5px;
+    flex-wrap: wrap;
+    align-items: left; 
+    margin-bottom: 0px; /* Add some space below each section */
 }
 
-.mapboxgl-popup-content h4 {
-    margin: 0;
-    display: block;
-    padding: 10px 3px 10px 10px;
-    font-weight: 400;
+#location-title,
+#location-description-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 8px; /* Space between the title and text */
+    min-width: 70px; /* Ensure the title has enough space on small screens */
+    text-align: left; /* Align title text to the right */
 }
 
-.mapboxgl-container {
-    cursor: pointer;
+.geojson-text {
+    font-size: 14px;
+    color: #555;
+    flex: 1; /* Allow the text to take the remaining space */
+    word-wrap: break-word;
+    max-width: 100%; /* Ensure no overflow */
 }
 
-.mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
-    margin-top: 3px;
+.geojson-text:first-child {
+    font-weight: normal;
+    color: #333;
 }
 
-.mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
-    border-bottom-color: rgb(61, 59, 59);
+.geojson-text:nth-child(2) {
+    font-style: italic;
+    color: #777;
+}
+
+.hidden {
+    display: none !important; /* Force hide the subtitle initially */
+}
 }
