@@ -165,11 +165,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             map.on('click', () => {
-                document.getElementById("title").innerText = "Edible Plants of Brooklyn";
+                document.getElementById("title").innerText = "Click a pin to learn more!";
+                document.getElementById("location-title").classList.add("hidden");
+                document.getElementById("location-description-title").classList.add("hidden");
                 document.getElementById("plant-address").innerText = "";
                 document.getElementById("plant-location").innerText = "";
                 document.getElementById("plant-subtitle").innerText = "";
-                document.getElementById("plant-description").innerText = "Select a marker to see details here.";
+                document.getElementById("plant-description").innerText = "";
                 document.getElementById("plant-details").innerText = "";
                 document.getElementById("plant-image-caption").innerText = "";
                 const img = document.getElementById("plant-image");
